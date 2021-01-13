@@ -7,6 +7,9 @@ SELECT * FROM `ospiti` WHERE YEAR(date_of_birth) > 1988
 
 3)Seleziona tutti gli ospiti che hanno più di 20 anni (al momento
 dell’esecuzione della query)
+3.1)Dai 21 anni compiuti in su
+SELECT * FROM `ospiti` WHERE (YEAR(curdate()) - YEAR(date_of_birth)) > 21 OR ((YEAR(curdate()) - YEAR(date_of_birth)) = 21 AND (MONTH(curdate()) > MONTH(date_of_birth))) OR ((YEAR(curdate()) - YEAR(date_of_birth)) = 21 AND (MONTH(curdate()) = MONTH(date_of_birth)) AND (DAY(curdate()) >= DAY(date_of_birth)))
+3.2)Superiori a 20 anni
 SELECT * FROM `ospiti` WHERE DATE_ADD(date_of_birth, INTERVAL 20 YEAR) < curdate()
 
 4)Seleziona tutti gli ospiti il cui nome inizia con la D
