@@ -3,7 +3,10 @@ identità
 SELECT * FROM `ospiti` WHERE document_type = 'CI'
 
 2)Seleziona tutti gli ospiti che sono nati dopo il 1988
+2.1)
 SELECT * FROM `ospiti` WHERE YEAR(date_of_birth) > 1988
+2.2)
+WHERE date_of_birth > '1988-%'
 
 3)Seleziona tutti gli ospiti che hanno più di 20 anni (al momento
 dell’esecuzione della query)
@@ -13,6 +16,8 @@ SELECT * FROM `ospiti` WHERE (YEAR(curdate()) - YEAR(date_of_birth)) > 21 OR ((Y
 SELECT * FROM `ospiti` WHERE DATE_ADD(date_of_birth, INTERVAL 20 YEAR) < curdate()
 3.3)Superiori a 20 anni
 SELECT * FROM `ospiti` WHERE (DATEDIFF(curdate(),date_of_birth) / 365.0) > 20.0
+3.4)TIMESTAMPDIFF
+WHERE TIMESTAMPDIFF(YEAR, date_of_birth, now()) > 20
 
 4)Seleziona tutti gli ospiti il cui nome inizia con la D
 SELECT * FROM `ospiti` WHERE name LIKE 'D%'
@@ -21,13 +26,19 @@ SELECT * FROM `ospiti` WHERE name LIKE 'D%'
 SELECT COUNT(status) FROM pagamenti WHERE status = 'accepted'
 
 6)Qual è il prezzo massimo pagato?
-SELECT MAX(price) FROM pagamenti
+6.1)
+SELECT MAX(price) FROM pagamenti WHERE status='accepted'
+6.2)
+SELECT * FROM pagamenti WHERE status='accepted' ORDER BY price DESC
 
 7)Seleziona gli ospiti riconosciuti con patente e nati nel 1975
 SELECT * FROM `ospiti` WHERE document_type = 'Driver License' AND YEAR(date_of_birth) = 1975
 
 8)Quanti paganti sono anche ospiti?
+8.1)
 SELECT COUNT(ospite_id) FROM `paganti` WHERE ospite_id IS NOT NULL
+8.2)
+SELECT COUNT(DISTINCT(ospite_id)) FROM `paganti` WHERE ospite_id IS NOT NULL
 
 9)Quanti posti letto ha l’hotel in totale?
-SELECT SUM(beds) FROM `stanze`
+SELECT SUM(beds) FROM `stanze` AS totale_posti_letto
