@@ -1,4 +1,19 @@
 1)Come si chiamano gli ospiti che hanno fatto più di due prenotazioni?
-SELECT ospiti.id, ospiti.name, ospiti.lastname, COUNT(prenotazioni_has_ospiti.prenotazione_id) FROM `prenotazioni_has_ospiti` JOIN `ospiti` ON prenotazioni_has_ospiti.ospite_id = ospiti.id GROUP BY ospiti.id HAVING COUNT(prenotazioni_has_ospiti.prenotazione_id) > 2
+SELECT ospiti.id, ospiti.name, ospiti.lastname, COUNT(prenotazioni_has_ospiti.prenotazione_id) 
+FROM `prenotazioni_has_ospiti` 
+JOIN `ospiti` 
+ON prenotazioni_has_ospiti.ospite_id = ospiti.id 
+GROUP BY ospiti.id 
+HAVING COUNT(prenotazioni_has_ospiti.prenotazione_id) > 2
 
 2)Stampare tutti gli ospiti per ogni prenotazione
+
+
+3)Stampare Nome, Cognome, Prezzo e Pagante per tutte le prenotazioni fatte a Maggio 2018
+SELECT paganti.name as nome_pagante, paganti.lastname cognome_pagante,pagamenti.price, prenotazioni.created_at 
+FROM `pagamenti` 
+JOIN prenotazioni
+ON pagamenti.prenotazione_id = prenotazioni.id
+JOIN paganti
+ON pagamenti.pagante_id = paganti.id
+HAVING prenotazioni.created_at LIKE '2018-05%'
