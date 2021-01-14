@@ -25,4 +25,11 @@ JOIN paganti
 ON pagamenti.pagante_id = paganti.id
 HAVING prenotazioni.created_at LIKE '2018-05%'
 
-4)Prendi i dati di fatturazione per la prenotazionecon id=7
+4)Prendi i dati di fatturazione per la prenotazione con id=7
+SELECT paganti.name as nome_pagante, paganti.lastname AS cognome_pagante, paganti.address AS indirizzo, pagamenti.price as prezzo, prenotazioni.created_at AS data_di_emissione
+FROM `pagamenti` 
+JOIN prenotazioni
+ON pagamenti.prenotazione_id = prenotazioni.id
+JOIN paganti
+ON pagamenti.pagante_id = paganti.id
+WHERE prenotazioni.id = 7
