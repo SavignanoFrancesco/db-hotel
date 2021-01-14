@@ -13,10 +13,14 @@ JOIN `ospiti`
 ON prenotazioni_has_ospiti.ospite_id = ospiti.id
 
 3)Stampare Nome, Cognome, Prezzo e Pagante per tutte le prenotazioni fatte a Maggio 2018
-SELECT paganti.name as nome_pagante, paganti.lastname cognome_pagante,pagamenti.price, prenotazioni.created_at 
+SELECT paganti.name as nome_pagante, paganti.lastname cognome_pagante, ospiti.name AS nome_ospite, ospiti.lastname AS cognome_ospite, pagamenti.price, prenotazioni.created_at 
 FROM `pagamenti` 
 JOIN prenotazioni
 ON pagamenti.prenotazione_id = prenotazioni.id
+JOIN prenotazioni_has_ospiti
+ON prenotazioni.id = prenotazioni_has_ospiti.prenotazione_id
+JOIN ospiti 
+ON prenotazioni_has_ospiti.ospite_id = ospiti.id
 JOIN paganti
 ON pagamenti.pagante_id = paganti.id
 HAVING prenotazioni.created_at LIKE '2018-05%'
